@@ -12,37 +12,39 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $admins = User::where("type", "=", 1)
-			->select("users.*", "states.name AS state")
-			->join("states", "users.stateId", "=", "states.id")
-			->get();
-
-        return view("admin.admins.index", compact("admins"));
+        $admins = User::all();
+        return view("Admin.admins.index", compact("admins"));
     }
 
 
     public function create()
     {
-		$states = DB::Table("states")->get();
-		return view('Admin.admins.create', compact("states"));
+		return view('Admin.admins.create');
 	}
 
     public function store(Request $request)
     {
-		$rules = $this->getRules();
+		$rules =  [
+            'name' => ['required','string','min:3','max:255','not_regex:/([%\$#\*<>]+)/'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'type' => ['required', 'string'],
+        ];
 
 		$this->validate( $request, $rules );
 
 		$admin = User::create([
 			"name" => $request->name,
 			"email" => $request->email,
-			"stateId" => $request->state,
-			"password" => Hash::make($request->getPassword()),
-			"type" => 1,
-			"phone" => $request->phone,
+			"password" => Hash::make($request->password),
+			"type" => $request->type
 		]);
 
-		return redirect("admin/admins");
+        if ($admin) {
+            return redirect()->route('admins.index')->withStatus('لقد تم إضافة مشرف بنجاح');
+        } else {
+            return redirect()->route('admins.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
+        }
     }
 
     public function show($id)
@@ -57,26 +59,42 @@ class AdminController extends Controller
 
     public function edit($id)
     {
-		$states = DB::Table("states")->get();
 		$admin = User::findOrFaIL($id);
 
-		return view("Admin.admins.create", compact("states", "admin"));
+		return view("Admin.admins.create", compact("admin"));
 	}
 
     public function update(Request $request, $id)
     {
-		$rules = $this->getRules();
+        $rules =  [
+            'name' => ['required','string','min:3','max:255','not_regex:/([%\$#\*<>]+)/'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'type' => ['required', 'string'],
+        ];
+
+        $this->validate($request, $rules);
 
 		$admin = User::findOrFail($id);
 
-		$admin->name = $request->name;
-		$admin->email = $request->email;
-		$admin->stateId = $request->state;
-		$admin->phone = $request->phone;
 
 		$admin->save();
 
-		return redirect("admin/admins");
+        if ($admin) {
+            $admin->update([
+                "name" => $request->name,
+                "email" => $request->email,
+                "password" => Hash::make($request->password),
+                "type" => $request->type
+            ]);
+
+            if ($request->profile){
+                return redirect()->route('admin.profile')->withStatus('لقد تم تعديل بياناتك بنجاح');
+            }
+            return redirect()->route('admins.index')->withStatus('لقد تم تعديل بيانات مشرف بنجاح');
+        } else {
+            return redirect()->route('admins.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
+        }
 	}
 
     public function destroy($id)
@@ -84,15 +102,12 @@ class AdminController extends Controller
 		$admin = User::findOrFail($id);
 		if ( $admin ) {
 			$admin->delete();
+            return redirect()->route('admins.index')->withStatus('لقد تم حذف بيانات مشرف بنجاح');
 		}
-
-		redirect("admin/admins");
-	}
-
-	private function getRules() {
-		return [
-جججج
-		];
+		else
+         {
+            return redirect()->route('admins.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
+        }
 	}
 
 }

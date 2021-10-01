@@ -1,77 +1,75 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <div class="account-pages mt-5 pt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center mt-4">
+                                <div class="mb-3">
+                                    <a href="index.html"><img src="{{asset('assets')}}/images/logo.png" height="30" alt="logo"></a>
+                                </div>
+                            </div>
+                            <div class="p-3">
+                                <h4 class="font-size-18 mt-2 text-center">Free Register</h4>
+                                <p class="text-muted text-center mb-4">Get your free Admiria account now.</p>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                                <form class="form-horizontal" method="POST" action="{{ route('register') }}">
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                                    @csrf
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <div class="form-group">
+                                        <label for="username">Email</label>
+                                        <input class="form-control @error('email') is-invalid @enderror" id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
-                            </div>
-                        </div>
+                                        @enderror
+                                    </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                    <div class="form-group">
+                                        <label for="userpassword">Password</label>
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                        @error('password')
+                                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
-                            </div>
-                        </div>
+                                        @enderror
+                                    </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                                    <div class="form-group">
+                                        <label for="userpassword">Confirm Password</label>
+                                        <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" required autocomplete="password_confirmation">
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
+                                        @error('password_confirmation')
+                                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="text-right">
+                                            <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Register</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <p class="text-white">Already have an account ?  <a href="pages-login.html" class="font-weight-bold text-primary"> Login </a> </p>
+                        <p class="text-white">2017 - 2020 © Admiria. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
+

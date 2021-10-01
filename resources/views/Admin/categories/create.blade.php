@@ -26,59 +26,38 @@
 
 
                                     @if(isset($category))
-                                        {{ __('edit category') }}
+                                        {{ __('تعديل بيانات القسم') }}
                                     @else
-                                        {{ __('add category') }}
+                                        {{ __('إضافة قسم') }}
 
                                     @endif
                                 </h3>
                             </div>
 
 
-                            <form role="form" action="@if(isset($category)){{route('categories.update',$category->id) }} @else {{route('categories.store') }} @endif" method="POST" enctype="multipart/form-data">
+                            <form role="form" action="@if(isset($category)){{route('admin-categories.update',$category->id) }} @else {{route('admin-categories.store') }} @endif" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @if(isset($category))
                                     @method('PUT')
                                 @endif
                                 <div class="card-body">
                                     <div class="form-group row">
-                                        <label for="example-text-input" class="col-sm-2 col-form-label">Name_Ar</label>
+                                        <label for="example-text-input" class="col-sm-2 col-form-label">اسم القسم</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control @error('name_ar') is-invalid @enderror" type="text" @if(isset($category)) value="{{old('name_ar',$category->name_ar)}}" @else value="{{old('name_ar')}}" @endif name="name_ar" id="example-text-input" required>
+                                            <input class="form-control @error('name') is-invalid @enderror" type="text" @if(isset($category)) value="{{old('name',$category->name)}}" @else value="{{old('name')}}" @endif name="name" id="example-text-input" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                                         </div>
-                                        @error('name_ar')
+                                        @error('name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label for="example-text-input" class="col-sm-2 col-form-label">Name_En</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control @error('name_en') is-invalid @enderror" type="text" @if(isset($category)) value="{{old('name_ar',$category->name_en)}}" @else value="{{old('name_ar')}}"  @endif name="name_en" id="example-text-input" required>
-                                        </div>
-                                        @error('name_en')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
 
                                     <div class="form-group row">
-                                        <label for="example-text-input" class="col-sm-2 col-form-label">Type</label>
+                                        <label for="example-text-input" class="col-sm-2">الصورة</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control select2" name="type" required>
-                                                <option @if(isset($category))  @if($category->id == "post") selected @endif  @endif value="post">post</option>
-                                                <option @if(isset($category))  @if($category->id == "service") selected @endif  @endif value="service">service</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="example-text-input" class="col-sm-2">Image</label>
-                                        <div class="col-sm-10">
-                                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="example-text-input">
+                                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="example-text-input" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                                         </div>
                                         @error('image')
                                             <span class="invalid-feedback" role="alert">
@@ -88,9 +67,13 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-10">
-                                            <input class="btn btn-purple" type="submit" @if(isset($category)) value="edit" @else value="add" @endif>
+                                            <input class="btn btn-purple" type="submit" @if(isset($category)) value="تعديل" @else value="إضافة" @endif>
                                         </div>
                                     </div>
+                                </div>
+                                <!-- Submit -->
+                                <div class="card-footer" style="background-color: white">
+                                    <input class="btn btn-purple" type="submit" @if(isset($category)) value="تعديل" @else value="إضافة" @endif>
                                 </div>
                             </form>
                         </div>

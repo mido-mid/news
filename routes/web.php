@@ -13,26 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//user
+
+Route::get('/', 'MainController@index')->name('main');
+Route::resource('news','NewsController');
+Route::resource('categories','CategoriesController');
 
 
 
 //admin
 
 Route::group(['middleware' => ['auth','admin']],function() {
-    Route::get('/dashboard',function (){
-        return view('Admin.dashboard');
-    })->name('dashboard');
-    Route::resource('admins', 'AdminController');
-    Route::resource('categories','CategoriesController');
-    Route::resource('users','CategoriesController');
-    Route::get('admin/profile', 'ProfileController@edit')->name('admin.profile');
-    Route::put('admin/profile', 'ProfileController@update')->name('admin.profileupdate');
-    Route::put('admin/profile/password', 'ProfileController@password')->name('admin.profilepassword');
+    Route::get('/home','Admin\HomeController@index')->name('home');
+    Route::resource('admins', 'Admin\AdminController');
+    Route::resource('admin-categories','Admin\CategoriesController');
+    Route::get('admin/profile', 'Admin\ProfileController@edit')->name('admin.profile');
 });
+
+Route::resource('admin-news','Admin\NewsController');

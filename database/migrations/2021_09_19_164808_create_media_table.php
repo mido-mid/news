@@ -15,7 +15,9 @@ class CreateMediaTable extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('filename');
+            $table->bigInteger('news_id')->unsigned();
+            $table->foreign('news_id')->references('id')->on('news')->onDelete('cascade');
         });
     }
 

@@ -18,7 +18,7 @@ class admin
     {
         $user = auth()->user();
 
-        if($user->type == 1){
+        if($user->type == "admin"){
             return $next($request);
         }
         return back()->withStatus('you are not allowed to enter this page');

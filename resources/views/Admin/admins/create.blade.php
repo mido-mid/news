@@ -10,9 +10,9 @@
                             <div class="card-header">
                                 <h3 class="card-title">
                                     @if(isset($admin))
-                                        {{ __('admin.edit') }}
+                                        {{ __('إضافة مشرف') }}
                                     @else
-                                        {{ __('admin.add') }}
+                                        {{ __('تعديل بيانات المشرف') }}
                                     @endif
                                 </h3>
                             </div>
@@ -29,62 +29,59 @@
                                 <div class="card-body">
                                     <!-- Name -->
                                     <div class="form-group">
-                                        <label for="name">{{ __("admin_name")  }}</label>
+                                        <label for="name">{{ __("الإسم")  }}</label>
                                         <input class="form-control" type="text"
-                                               value="{{ old( "name", isset( $admin ) ?? $admin->name ) }}"
-                                               id="name" name="name">
-                                        @error("name")
-                                            {{ $message }}
+                                               @if(isset($admin)) value="{{old('name',$admin->name)}}" @else value="{{old('name')}}"  @endif
+                                               id="name" name="name" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
 
                                     <!-- Email -->
                                     <div class="form-group">
-                                        <label for="email">{{ __("admin_email")  }}</label>
+                                        <label for="email">{{ __("البريد الإلكتروني")  }}</label>
                                         <input class="form-control" type="text"
-                                               value="{{ old("email", isset( $admin ) ?? $admin->email ) }}"
-                                               id="email" name="email">
-                                        @error("email")
-                                            {{ $message }}
+                                               @if(isset($admin)) value="{{old('email',$admin->email)}}" @else value="{{old('email')}}"  @endif
+                                               id="email" name="email" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
 
                                     <!-- State -->
                                     <div class="form-group">
-                                        <label for="state">{{ __("admin_state")  }}</label>
-                                        <select class="form-control" name="state" id="state">
-                                            @foreach($states as $state)
-                                                <option value="{{ $state->id }}"
-                                                        @if(isset($admin) && $admin->stateId == $state->id )
-                                                        selected
-                                                        @endif
-                                                >{{ $state->name }}
-                                                </option>
-                                            @endforeach
+                                        <label for="state">{{ __("نوع")  }}</label>
+                                        <select class="form-control" name="type" id="state" required oninput="this.setCustomValidity('')"
+                                                oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
+                                                <option @if(isset( $admin )) @if($admin->type == "admin") selected @endif @endif value="admin">Admin</option>
+                                                <option @if(isset( $admin )) @if($admin->type == "publisher") selected @endif @endif value="publisher">Publisher</option>
                                         </select>
                                     </div>
 
                                     <!-- Password -->
                                     <div class="form-group">
-                                        <label for="password">{{ __("admin_password")  }}</label>
-                                        <input class="form-control" type="password" name="password" id="password">
-                                        @error("password")
-                                            {{ $message }}
+                                        <label for="password">{{ __("كلمة السر")  }}</label>
+                                        <input class="form-control" type="password" name="password" id="password" @if(!isset( $admin )) required @endif oninput="this.setCustomValidity('')"
+                                               oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="password2">{{ __("admin_password")  }}</label>
-                                        <input class="form-control" type="password" name="password2" id="password2">
-                                    </div>
-
-                                    <!-- Phone -->
-                                    <div class="form-group">
-                                        <label for="phone">{{ __("admin_phone")  }}</label>
-                                        <input class="form-control" type="text"
-                                               value="{{ old( "name", isset( $admin ) ?? $admin->phone ) }}"
-                                               name="phone" id="phone">
-                                        @error( "phone" )
-                                            {{ $message }}
+                                        <label for="password2">{{ __("تأكيد كلمة السر")  }}</label>
+                                        <input class="form-control" type="password" name="password_confirmation" id="password2" @if(!isset( $admin )) required @endif oninput="this.setCustomValidity('')"
+                                               oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
+                                        @error('password_confirmation')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                 </div>
@@ -92,8 +89,8 @@
                                 <!-- Submit -->
                                 <div class="card-footer" style="background-color: white">
                                     <input class="btn btn-purple" type="submit"
-                                           @if(isset($admin)) value="{{ __("edit") }}"
-                                           @else value="{{ __('add') }}" @endif>
+                                           @if(isset($admin)) value="{{ __("تعديل") }}"
+                                           @else value="{{ __('إضافة') }}" @endif>
                                 </div>
                             </form>
                         </div>

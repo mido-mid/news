@@ -36,9 +36,7 @@ class CategoriesController extends Controller
     {
 
          $rules = [
-             'name_ar' => ['required','min:2','not_regex:/([%\$#\*<>]+)/'],
-             'name_en' =>['required','min:2','not_regex:/([%\$#\*<>]+)/'],
-             'type' => ['required','string'],
+             'name' => ['required','string','min:3','max:255','not_regex:/([%\$#\*<>]+)/'],
              'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,JPG|max:2048',
          ];
 
@@ -53,16 +51,14 @@ class CategoriesController extends Controller
         $image->move('category_images', $file_to_store);
 
          $category = Category::create([
-             'name_ar' => $request->name_ar,
-             'name_en' => $request->name_en,
-             'type' => $request->type,
+             'name' => $request->name,
              'image'=> $file_to_store
          ]);
 
          if ($category) {
-             return redirect()->route('categories.index')->withStatus('category successfully created');
+             return redirect()->route('categories.index')->withStatus('لقد تم إضافة قسم بنجاح');
          } else {
-             return redirect()->route('categories.index')->withStatus('something went wrong, try again');
+             return redirect()->route('categories.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
          }
     }
 
@@ -94,7 +90,7 @@ class CategoriesController extends Controller
         }
         else
         {
-            return redirect('admin/categories')->withStatus('no word have this id');
+            return redirect('admin/categories')->withStatus('ليس هناك قسم بهذا الرقم التعريفي');
         }
     }
 
@@ -111,10 +107,8 @@ class CategoriesController extends Controller
         $category = Category::find($id);
 
         $rules = [
-            'name_ar' => ['required','min:2','not_regex:/([%\$#\*<>]+)/'],
-            'name_en' =>['required','min:2','not_regex:/([%\$#\*<>]+)/'],
-            'type' => ['required','string'],
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,JPG|max:2048',
+            'name' => ['required','string','min:3','max:255','not_regex:/([%\$#\*<>]+)/'],
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,JPG|max:2048',
         ];
 
 
@@ -135,14 +129,12 @@ class CategoriesController extends Controller
             $file_to_store = $file_to_store != null ? $file_to_store : $category->image;
 
             $category->update([
-                'name_ar' => $request->name_ar,
-                'name_en' => $request->name_en,
-                'type' => $request->type,
+                'name' => $request->name,
                 'image'=> $file_to_store
             ]);
-            return redirect()->route('categories.index')->withStatus('category updated successfully');
+            return redirect()->route('categories.index')->withStatus('لقد تم تعديل بيانات القسم بنجاح');
         } else {
-            return redirect()->route('categories.index')->withStatus('something went wrong, try again');
+            return redirect()->route('categories.index')->withStatus('ليس هناك قسم بهذا الرقم التعريفي');
         }
     }
 
@@ -168,9 +160,9 @@ class CategoriesController extends Controller
 
             $category->delete();
 
-            return redirect()->route('categories.index')->withStatus('category successfully deleted');
+            return redirect()->route('categories.index')->withStatus('لقد تما حذف القسم بنجاح');
         } else {
-            return redirect()->route('categories.index')->withStatus('something went wrong, try again');
+            return redirect()->route('categories.index')->withStatus('ليس هناك قسم بهذا الرقم التعريفي');
         }
     }
 }
