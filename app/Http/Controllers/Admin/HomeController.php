@@ -26,6 +26,10 @@ class HomeController extends Controller
     public function index()
     {
         $admins = User::all();
+
+        if (auth()->user()->type == "publisher"){
+            return redirect()->route('admin-news.create');
+        }
         return view("Admin.admins.index", compact("admins"));
     }
 }

@@ -37,7 +37,7 @@
                                     @foreach($admins as $admin)
                                         <tbody>
                                         <tr>
-                                            <td><a href="{{ route("admins.show", $admin->id) }}" class="text-dark">{{ $admin->name }}</a></td>
+                                            <td>{{ $admin->name }}</td>
                                             <td>{{ $admin->email }}</td>
                                             <td>{{ $admin->type }}</td>
                                             <td>

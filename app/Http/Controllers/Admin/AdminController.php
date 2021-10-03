@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
@@ -25,8 +26,8 @@ class AdminController extends Controller
     public function store(Request $request)
     {
 		$rules =  [
-            'name' => ['required','string','min:3','max:255','not_regex:/([%\$#\*<>]+)/'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required','string','min:3','max:200','not_regex:/([%\$#\*<>]+)/'],
+            'email' => ['required', 'string', 'email', 'max:200', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'type' => ['required', 'string'],
         ];
@@ -67,8 +68,8 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $rules =  [
-            'name' => ['required','string','min:3','max:255','not_regex:/([%\$#\*<>]+)/'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required','string','min:3','max:200','not_regex:/([%\$#\*<>]+)/'],
+            'email' => ['required', 'string', 'email', 'max:200', Rule::unique((new User)->getTable())->ignore(auth()->id())],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'type' => ['required', 'string'],
         ];

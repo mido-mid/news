@@ -42,7 +42,9 @@ class NewsController extends Controller
     public function create()
     {
         //
-        return view('Admin.news.create');
+        $categories = DB::table('categories')->get();
+
+        return view('Admin.news.create',compact('categories'));
     }
 
     /**
@@ -55,11 +57,11 @@ class NewsController extends Controller
     {
         //
         $rules = [
-            'title' => ['required', 'string', 'max:255', 'min:2'],
+            'title' => ['required', 'string', 'max:200', 'min:3'],
             'body' => ['required'],
-            'author' => ['required', 'string', 'max:255', 'min:2'],
+            'author' => ['required', 'string', 'max:200', 'min:3','not_regex:/([%\$#\*<>]+)/'],
             'media' => 'required',
-            'media.*' => 'image|mimes:jpeg,png,jpg,gif,svg,JPG|max:100040',
+            'media.*' => 'image|mimes:jpeg,png,jpg,JPG|max:100040',
             'category_id' => ['required', 'integer'],
         ];
 
@@ -67,7 +69,7 @@ class NewsController extends Controller
 
         $new = News::create([
             "title" => $request->title,
-            "body" => $request->body,
+            "body" => strip_tags($request->body),
             "author" => $request->author,
             "category_id" => $request->category_id
         ]);
@@ -96,9 +98,9 @@ class NewsController extends Controller
 
             }
 
-            return redirect()->route('news.index')->withStatus('لقد تم إضافة خبر بنجاح');
+            return redirect()->route('admin-news.index')->withStatus('لقد تم إضافة خبر بنجاح');
         } else {
-            return redirect()->route('news.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
+            return redirect()->route('admin-news.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
         }
     }
 
@@ -133,11 +135,12 @@ class NewsController extends Controller
     {
         //
         $new = News::find($id);
+        $categories = DB::table('categories')->get();
 
         if($new)
         {
             $new->media = DB::table('media')->where('news_id',$new->id)->get();
-            return view('Admin.news.create',compact('new'));
+            return view('Admin.news.create',compact('new','categories'));
         }
         else
         {
@@ -159,11 +162,11 @@ class NewsController extends Controller
         $new = News::find($id);
 
         $rules = [
-            'title' => ['required', 'string', 'max:255', 'min:2'],
+            'title' => ['required', 'string', 'max:200', 'min:2'],
             'body' => ['required'],
-            'author' => ['required', 'string', 'max:255', 'min:2'],
+            'author' => ['required', 'string', 'max:255', 'min:3','not_regex:/([%\$#\*<>]+)/'],
             'media' => 'nullable',
-            'media.*' => 'image|mimes:jpeg,png,jpg,gif,svg,JPG|max:100040',
+            'media.*' => 'image|mimes:jpeg,png,jpg,JPG|max:100040',
             'category_id' => ['required', 'integer'],
         ];
 
@@ -173,7 +176,7 @@ class NewsController extends Controller
 
             $new->update([
                 "title" => $request->title,
-                "body" => $request->body,
+                "body" => strip_tags($request->body),
                 "author" => $request->author,
                 "category_id" => $request->category_id
             ]);
@@ -224,10 +227,10 @@ class NewsController extends Controller
                 }
 
             }
-            return redirect()->route('news.index')->withStatus('لقد تم تعديل بيانات الخبر بنجاح');
+            return redirect()->route('admin-news.index')->withStatus('لقد تم تعديل بيانات الخبر بنجاح');
         }
         else{
-            return redirect()->route('news.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
+            return redirect()->route('admin-news.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
         }
     }
 

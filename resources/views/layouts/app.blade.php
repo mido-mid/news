@@ -167,7 +167,7 @@ foreach ($categories as $category){
                     <div class="col-lg-4 text-right"  style=" height:150px;margin-top:20px;color: #FFF;">
                         <h4><a href="{{route('categories.show',$category->id)}}" >{{$category->name}}</a></h4>
                         @foreach($category->news as $new)
-                            <a href="{{route('news.show',$category->id)}}" style="padding:5px;">{{\Str::limit($new->title, 50)}}</a><br>
+                            <a href="{{route('news.show',$new->id)}}" style="padding:5px;">{{\Str::limit($new->title, 50)}}</a><br>
                         @endforeach
                     </div>
                 @endif

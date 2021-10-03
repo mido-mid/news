@@ -30,7 +30,7 @@
                                     <!-- Name -->
                                     <div class="form-group">
                                         <label for="name">{{ __("الإسم")  }}</label>
-                                        <input class="form-control" type="text"
+                                        <input class="form-control @error('name') is-invalid @enderror" type="text"
                                                @if(isset($admin)) value="{{old('name',$admin->name)}}" @else value="{{old('name')}}"  @endif
                                                id="name" name="name" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                                         @error('name')
@@ -43,7 +43,7 @@
                                     <!-- Email -->
                                     <div class="form-group">
                                         <label for="email">{{ __("البريد الإلكتروني")  }}</label>
-                                        <input class="form-control" type="text"
+                                        <input class="form-control @error('email') is-invalid @enderror" type="text"
                                                @if(isset($admin)) value="{{old('email',$admin->email)}}" @else value="{{old('email')}}"  @endif
                                                id="email" name="email" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                                         @error('email')
@@ -56,7 +56,7 @@
                                     <!-- State -->
                                     <div class="form-group">
                                         <label for="state">{{ __("نوع")  }}</label>
-                                        <select class="form-control" name="type" id="state" required oninput="this.setCustomValidity('')"
+                                        <select class="form-control @error('type') is-invalid @enderror" name="type" id="state" required oninput="this.setCustomValidity('')"
                                                 oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                                                 <option @if(isset( $admin )) @if($admin->type == "admin") selected @endif @endif value="admin">Admin</option>
                                                 <option @if(isset( $admin )) @if($admin->type == "publisher") selected @endif @endif value="publisher">Publisher</option>
@@ -66,7 +66,7 @@
                                     <!-- Password -->
                                     <div class="form-group">
                                         <label for="password">{{ __("كلمة السر")  }}</label>
-                                        <input class="form-control" type="password" name="password" id="password" @if(!isset( $admin )) required @endif oninput="this.setCustomValidity('')"
+                                        <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" id="password" @if(!isset( $admin )) required @endif oninput="this.setCustomValidity('')"
                                                oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -76,7 +76,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="password2">{{ __("تأكيد كلمة السر")  }}</label>
-                                        <input class="form-control" type="password" name="password_confirmation" id="password2" @if(!isset( $admin )) required @endif oninput="this.setCustomValidity('')"
+                                        <input class="form-control @error('password_confirmation') is-invalid @enderror" type="password" name="password_confirmation" id="password2" @if(!isset( $admin )) required @endif oninput="this.setCustomValidity('')"
                                                oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                                         @error('password_confirmation')
                                             <span class="invalid-feedback" role="alert">
