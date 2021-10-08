@@ -160,55 +160,55 @@
                     @foreach($categories as $category)
                         @if(count($category->news) > 0)
                             <div class="col-md-12 items {{$category->id}}" style="background-image: url({{asset('category_images')}}/{{$category->image}}); padding-top: 30px;padding-bottom: 30px;background-size: cover;">
-                            <div class="blog">
-                                <div class="container">
-                                    <div class="row">
-                                        @foreach($category->news as $new)
+                                <div class="blog">
+                                    <div class="container">
+                                        <div class="row">
+                                            @foreach($category->news as $new)
 
-                                            <div class="col-lg-4">
-                                                <div class="item text-center mb-md50">
-                                                    <div class="post-img">
-                                                        @if(count($new->media) > 0)
-                                                            <img src="{{asset('media')}}/{{$new->media[0]->filename}}" alt="" style="width: 100%; height: 230px;">
-                                                        @else
-                                                            <img src="{{asset('media')}}/1.jpg" alt="" style="width: 100%; height: 230px;">
-                                                        @endif
-                                                        <div class="date">
-                                                            <span>
-                                                                @php
-                                                                    $timestamp = strtotime($new->created_at);
+                                                <div class="col-lg-4">
+                                                    <div class="item text-center mb-md50">
+                                                        <div class="post-img">
+                                                            @if(count($new->media) > 0)
+                                                                <img src="{{asset('media')}}/{{$new->media[0]->filename}}" alt="" style="width: 100%; height: 230px;">
+                                                            @else
+                                                                <img src="{{asset('media')}}/1.jpg" alt="" style="width: 100%; height: 230px;">
+                                                            @endif
+                                                            <div class="date">
+                                                                <span>
+                                                                    @php
+                                                                        $timestamp = strtotime($new->created_at);
 
-                                                                    $day = date('d', $timestamp);
+                                                                        $day = date('d', $timestamp);
 
-                                                                    echo $day
-                                                                @endphp
+                                                                        echo $day
+                                                                    @endphp
+                                                                </span>
+                                                                <span>
+                                                                    @php
+                                                                        $timestamp = strtotime($new->created_at);
+
+                                                                        $day = date('M', $timestamp);
+
+                                                                        echo $day
+                                                                    @endphp
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="content" style="height: 250px">
+                                                            <span class="tag">
+                                                                <a href="{{route('news.show',$new->id)}}"> بقلم / {{$new->author}}</a>
                                                             </span>
-                                                            <span>
-                                                                @php
-                                                                    $timestamp = strtotime($new->created_at);
-
-                                                                    $day = date('M', $timestamp);
-
-                                                                    echo $day
-                                                                @endphp
-                                                            </span>
+                                                            <h5><a href="{{route('news.show',$new->id)}}">{{$new->title}}</a> </h5>
+                                                            <p>{{\Str::limit($new->body, 150)}}</p>
                                                         </div>
                                                     </div>
-                                                    <div class="content" style="height: 250px">
-                                                        <span class="tag">
-                                                            <a href="{{route('news.show',$new->id)}}"> بقلم / {{$new->author}}</a>
-                                                        </span>
-                                                        <h5><a href="{{route('news.show',$new->id)}}">{{$new->title}}</a> </h5>
-                                                        <p>{{\Str::limit($new->body, 150)}}</p>
-                                                    </div>
                                                 </div>
-                                            </div>
 
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
                     @endforeach
 
