@@ -56,13 +56,13 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <!-- item-->
                     @if(auth()->user()->type == "admin")
-                        <a class="dropdown-item" href="{{route('admin.profile')}}"><i class="bx bx-user font-size-16 align-middle mr-1"></i> Profile</a>
+                        <a class="dropdown-item" href="{{route('admin.profile')}}"><i class="bx bx-user font-size-16 align-middle mr-1"></i> الصفحة الشخصية</a>
                     @endif
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                     <a onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit();" class="dropdown-item text-danger" href="{{ route('logout') }}"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i> Logout</a>
+                              document.getElementById('logout-form').submit();" class="dropdown-item text-danger" href="{{ route('logout') }}"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i> تسجيل خروج</a>
                 </div>
             </div>
 

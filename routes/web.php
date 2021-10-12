@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth','admin']],function() {
     Route::resource('admins', 'Admin\AdminController');
     Route::resource('admin-categories','Admin\CategoriesController');
     Route::get('admin/profile', 'Admin\ProfileController@edit')->name('admin.profile');
+    Route::put('admin/profile/{id}', 'Admin\ProfileController@update')->name('admin.profile.update');
 });
 
 Route::resource('admin-news','Admin\NewsController');

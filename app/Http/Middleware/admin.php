@@ -21,7 +21,7 @@ class admin
         if($user->type == "admin"){
             return $next($request);
         }
-        return redirect()->route('admin-news.create')->withStatus('ليس مسموح لك بدخول هذه الصفحة');
+        return redirect()->route('admin-news.create');
 
     }
 }

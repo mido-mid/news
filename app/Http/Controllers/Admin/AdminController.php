@@ -13,7 +13,9 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $admins = User::all();
+        $admins = DB::table('users')->where('id','!=',auth()->user()->id)
+            ->orderBy('id','desc')->get();
+
         return view("Admin.admins.index", compact("admins"));
     }
 
@@ -69,7 +71,7 @@ class AdminController extends Controller
     {
         $rules =  [
             'name' => ['required','string','min:3','max:200','not_regex:/([%\$#\*<>]+)/'],
-            'email' => ['required', 'string', 'email', 'max:200', Rule::unique((new User)->getTable())->ignore(auth()->id())],
+            'email' => ['required', 'string', 'email', 'max:200', Rule::unique((new User)->getTable())->ignore($id)],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'type' => ['required', 'string'],
         ];
@@ -78,20 +80,18 @@ class AdminController extends Controller
 
 		$admin = User::findOrFail($id);
 
-
-		$admin->save();
-
         if ($admin) {
+            $old_password = $admin->password;
+
+            $password = $request->password != null ? Hash::make($request->password) : $old_password;
+
             $admin->update([
                 "name" => $request->name,
                 "email" => $request->email,
-                "password" => Hash::make($request->password),
+                "password" => $password,
                 "type" => $request->type
             ]);
 
-            if ($request->profile){
-                return redirect()->route('admin.profile')->withStatus('لقد تم تعديل بياناتك بنجاح');
-            }
             return redirect()->route('admins.index')->withStatus('لقد تم تعديل بيانات مشرف بنجاح');
         } else {
             return redirect()->route('admins.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
