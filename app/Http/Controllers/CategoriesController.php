@@ -51,13 +51,17 @@ class CategoriesController extends Controller
         $category = Category::find($id);
 
         if($category){
-            $category_latest_news = DB::table('news')->where('category_id',$category->id)->limit(4)->get();
+            $category_latest_news = DB::table('news')->where('category_id',$category->id)
+                ->where('state',"approved")
+                ->limit(4)
+                ->get();
 
             foreach ($category_latest_news as $new) {
                 $new->media = DB::table('media')->where('news_id', $new->id)->get();
             }
 
             $category->news = DB::table('news')->where('category_id',$category->id)
+                ->where('state',"approved")
                 ->orderBy('created_at','desc')->paginate(5);
 
             if(count($category->news) > 0){

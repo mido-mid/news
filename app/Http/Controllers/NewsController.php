@@ -54,6 +54,7 @@ class NewsController extends Controller
             $new->media = DB::table('media')->where('news_id',$new->id)->get();
 
             $category_news = DB::table('news')->where('category_id',$new->category_id)
+                ->where('state',"approved")
                 ->orderBy('created_at','desc')->limit(6)->get();
 
             foreach ($category_news as $category_new){

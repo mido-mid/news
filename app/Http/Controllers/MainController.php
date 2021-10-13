@@ -13,12 +13,13 @@ class MainController extends Controller
 
         $categories = DB::table('categories')->get();
 
-        $latest_news = DB::table('news')->orderBy('created_at','desc')->limit(7)->get();
+        $latest_news = DB::table('news')->where('state',"approved")->orderBy('created_at','desc')->limit(7)->get();
 
-        $latest_four_news = DB::table('news')->orderBy('created_at','desc')->limit(4)->get();
+        $latest_four_news = DB::table('news')->where('state',"approved")->orderBy('created_at','desc')->limit(4)->get();
 
         foreach ($categories as $category){
             $category->news = DB::table('news')->where('category_id',$category->id)
+                ->where('state',"approved")
                 ->orderBy('created_at','desc')->limit(3)->get();
 
             if(count($category->news) > 0){

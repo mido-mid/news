@@ -31,11 +31,14 @@ class DatabaseSeeder extends Seeder
 
         $author = ['أيمن محمد','محمد أسامة','محمد سلامة'];
 
+        $state = ["pending","approved"];
+
         for ($i = 0; $i<=50; $i++ ){
             $new = News::create([
                 'title' => $title[rand(0,4)],
                 'body' => $body[rand(0,2)],
                 'author' => $author[rand(0,2)],
+                'state' => $state[rand(0,1)],
                 'category_id' => Category::all()->random()->id,
                 'created_at' => date("Y-m-d h:i:s", time())
             ]);

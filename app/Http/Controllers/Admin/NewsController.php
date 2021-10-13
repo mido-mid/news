@@ -27,11 +27,12 @@ class NewsController extends Controller
     public function index()
     {
         //
-        $news = News::orderBy('id', 'desc')->get();
+        $approved = true;
+        $news = News::where('state',"approved")->orderBy('id', 'desc')->get();
         foreach ($news as $new){
             $new->category = DB::table('categories')->where('id',$new->category_id)->first();
         }
-        return view('Admin.news.index',compact('news'));
+        return view('Admin.news.index',compact('news','approved'));
     }
 
     /**
@@ -67,10 +68,13 @@ class NewsController extends Controller
 
         $this->validate( $request, $rules );
 
+        $state = auth()->user()->type == "publisher" ? "pending" : "approved";
+
         $new = News::create([
             "title" => $request->title,
             "body" => strip_tags($request->body),
             "author" => $request->author,
+            "state" => $state,
             "category_id" => $request->category_id
         ]);
 
@@ -144,7 +148,7 @@ class NewsController extends Controller
         }
         else
         {
-            return redirect('admin/news')->withStatus('ليس هناك قسم بهذا الرقم التعريفي');
+            return redirect()->route('admin-news.index')->withStatus('ليس هناك قسم بهذا الرقم التعريفي');
         }
     }
 
@@ -172,12 +176,15 @@ class NewsController extends Controller
 
         $this->validate($request, $rules);
 
+        $state = auth()->user()->type == "publisher" ? "pending" : "approved";
+
         if ($new) {
 
             $new->update([
                 "title" => $request->title,
                 "body" => strip_tags($request->body),
                 "author" => $request->author,
+                "state" => $state,
                 "category_id" => $request->category_id
             ]);
 
@@ -259,6 +266,32 @@ class NewsController extends Controller
             return redirect()->route('admin-news.index')->withStatus('لقد تم حذف الخبر بنجاح');
         } else {
             return redirect()->route('admin-news.index')->withStatus('ليس هناك خبر بهذا الرقم التعريفي');
+        }
+    }
+
+    public function getPendingNews($id)
+    {
+        //
+        $approved = false;
+        $news = News::where('state',"pending")->orderBy('id', 'desc')->get();
+        foreach ($news as $new){
+            $new->category = DB::table('categories')->where('id',$new->category_id)->first();
+        }
+        return view('Admin.news.index',compact('news','approved'));
+    }
+
+    public function approveNew($id)
+    {
+        //
+        $new = News::find($id);
+        if($new)
+        {
+            $new->update(['state' => "approved"]);
+            return redirect()->route('admin-news.index')->withStatus('لقد تم قبول هذا الخبر بنجاح');
+        }
+        else
+        {
+            return redirect()->route('admin-news.index')->withStatus('ليس هناك قسم بهذا الرقم التعريفي');
         }
     }
 }

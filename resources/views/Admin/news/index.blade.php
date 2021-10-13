@@ -10,6 +10,9 @@
                 <div class="row">
                     <div class="col-12" style="margin-bottom: 20px;">
                         <button style="float: right" type="button" class="btn btn-primary waves-effect waves-light" onclick="window.location.href='{{route('admin-news.create')}}'">إضافة خبر</button>
+                        @if($approved == true)
+                            <button type="button" class="btn btn-primary waves-effect waves-light" onclick="window.location.href='{{route('admin.pending_news')}}'">الاخبار التي لم تقبل</button>
+                        @endif
                     </div> <!-- end col -->
                 </div> <!-- end row -->
                 <div class="col-12">
@@ -39,6 +42,9 @@
                                             <th>الكاتب</th>
                                             <th>القسم</th>
                                             <th>أدوات التحكم</th>
+                                            @if($approved == false)
+                                                <th>حالة الخبر</th>
+                                            @endif
                                         </tr>
                                         </thead>
 
@@ -69,6 +75,18 @@
                                                         </div>
                                                     </div>
                                                 </td>
+                                                @if($approved == false)
+                                                    <td>
+
+                                                        <form action="{{ route('admin.approve_news', $new->id) }}" method="post">
+                                                            @csrf
+                                                            @method('put')
+
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("هل تريد قبول هذا الخبر ؟") }}') ? this.parentElement.submit() : ''">{{ __('قبول') }}</button>
+
+                                                        </form>
+                                                    </td>
+                                                @endif
                                             </tr>
                                             </tbody>
                                         @endforeach

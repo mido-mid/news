@@ -29,6 +29,9 @@ Route::group(['middleware' => ['auth','admin']],function() {
     Route::get('/home','Admin\HomeController@index')->name('home');
     Route::resource('admins', 'Admin\AdminController');
     Route::resource('admin-categories','Admin\CategoriesController');
+    Route::resource('admins-sponsors','Admin\SponsorsController');
+    Route::get('admin/pending_news', 'Admin\NewsController@getPendingNews')->name('admin.pending_news');
+    Route::put('admin/approve_news', 'Admin\NewsController@approveNew')->name('admin.approve_news');
     Route::get('admin/profile', 'Admin\ProfileController@edit')->name('admin.profile');
     Route::put('admin/profile/{id}', 'Admin\ProfileController@update')->name('admin.profile.update');
 });
