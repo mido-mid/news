@@ -24,7 +24,7 @@
                             </div>
 
 
-                            <form role="form" action="@if(isset($sponsor)){{route('admin-sponsors.update',$category->id) }} @else {{route('admin-sponsors.store') }} @endif" method="POST" enctype="multipart/form-data">
+                            <form role="form" action="@if(isset($sponsor)){{route('admin-sponsors.update',$sponsor->id) }} @else {{route('admin-sponsors.store') }} @endif" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @if(isset($sponsor))
                                     @method('PUT')
@@ -32,7 +32,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-sm-2 col-form-label">رابط الإعلان</label>
-                                        <input class="form-control @error('name') is-invalid @enderror" type="text" @if(isset($sponsor)) value="{{old('link',$sponsor->link)}}" @else value="{{old('link')}}" @endif name="link" id="example-text-input" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
+                                        <input class="form-control @error('link') is-invalid @enderror" type="text" @if(isset($sponsor)) value="{{old('link',$sponsor->link)}}" @else value="{{old('link')}}" @endif name="link" id="example-text-input" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                                         @error('link')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -53,7 +53,7 @@
                                 </div>
                                 <!-- Submit -->
                                 <div class="card-footer" style="background-color: white">
-                                    <input class="btn btn-purple" type="submit" @if(isset($category)) value="تعديل" @else value="إضافة" @endif>
+                                    <input class="btn btn-purple" type="submit" @if(isset($sponsor)) value="تعديل" @else value="إضافة" @endif>
                                 </div>
                             </form>
                         </div>

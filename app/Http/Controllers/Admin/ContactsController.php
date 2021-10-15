@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use App\Models\Sponsor;
+use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class CategoriesController extends Controller
+class ContactsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +16,8 @@ class CategoriesController extends Controller
     public function index()
     {
         //
+        $contacts = Contact::all();
+        return view('Admin.contacts.index',compact('contacts'));
     }
 
     /**
@@ -49,34 +50,14 @@ class CategoriesController extends Controller
     public function show($id)
     {
         //
-        $category = Category::find($id);
 
-        $sponsors = Sponsor::all();
+        $contact = Contact::find($id);
 
-        if($category){
-            $category_latest_news = DB::table('news')->where('category_id',$category->id)
-                ->where('state',"approved")
-                ->limit(4)
-                ->get();
-
-            foreach ($category_latest_news as $new) {
-                $new->media = DB::table('media')->where('news_id', $new->id)->get();
-            }
-
-            $category->news = DB::table('news')->where('category_id',$category->id)
-                ->where('state',"approved")
-                ->orderBy('created_at','desc')->paginate(5);
-
-            if(count($category->news) > 0){
-                foreach ($category->news as $new){
-                    $new->media = DB::table('media')->where('news_id',$new->id)->get();
-                }
-            }
-
-            return view('category',compact('category_latest_news','category','sponsors'));
+        if($contact){
+            return view('Admin.contacts.show',compact('contact'));
         }
         else{
-            return redirect()->route('main')->withStatus('ليس هناك خبر بهذا الرقم التعريفي');
+            return redirect()->route('admin-contacts.index')->withStatus('ليس هناك شكوي بهذا الرقم التعريفي');
         }
     }
 

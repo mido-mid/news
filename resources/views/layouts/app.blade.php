@@ -89,8 +89,11 @@ foreach ($categories as $category){
             </ul>
         </div>
     </div>
-
+    <div dir="rtl" class="date-div row" >
+        <p style="color: red;margin-left: 5px">تاريخ اليوم </p><p style="color: red">{{ date("d/m/Y") }}</p>
+    </div>
 </nav>
+
 
 <!-- End Navbar ====
 ======================================= -->
@@ -178,9 +181,11 @@ foreach ($categories as $category){
             <a href="#0" style="color: #FFF"><i class="icofont icofont-social-facebook"></i></a>
             <a href="#0" style="color: #FFF"><i class="icofont icofont-social-twitter"></i></a>
             <a href="#0" style="color: #FFF"><i class="icofont icofont-social-instagram"></i></a>
+            <span></span>
         </div>
 
-        <p style="color: #FFF">&copy; جميع الحقوق محفوظة لجريدة منصة مصر</p>
+        <p style="color: #FFF;margin-bottom: 10px">&copy; جميع الحقوق محفوظة لجريدة منصة مصر</p>
+        <a style="color: blue" href="{{route('contacts.create')}}">اضغط هنا </a> <p style="display:inline;color: #FFF">لإرسال الشكاوي و المقترحات من فضلك </p>
 
     </div>
 </footer>

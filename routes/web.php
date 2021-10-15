@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/', 'MainController@index')->name('main');
 Route::resource('news','NewsController');
 Route::resource('categories','CategoriesController');
-
+Route::resource('contacts','ContactsController');
 
 
 //admin
@@ -29,7 +29,8 @@ Route::group(['middleware' => ['auth','admin']],function() {
     Route::get('/home','Admin\HomeController@index')->name('home');
     Route::resource('admins', 'Admin\AdminController');
     Route::resource('admin-categories','Admin\CategoriesController');
-    Route::resource('admins-sponsors','Admin\SponsorsController');
+    Route::resource('admin-sponsors','Admin\SponsorsController');
+    Route::resource('admin-contacts','Admin\ContactsController');
     Route::get('admin/pending_news', 'Admin\NewsController@getPendingNews')->name('admin.pending_news');
     Route::put('admin/approve_news', 'Admin\NewsController@approveNew')->name('admin.approve_news');
     Route::get('admin/profile', 'Admin\ProfileController@edit')->name('admin.profile');

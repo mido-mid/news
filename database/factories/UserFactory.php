@@ -3,8 +3,10 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Media;
 use App\Models\News;
+use App\Models\Sponsor;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
@@ -42,15 +44,28 @@ $factory->define(Category::class, function (Faker $faker) {
             'تحقيقات و حوارات',
             'ثقافة و فن',
         ]),
-        'image' =>  $faker->randomElement(['sport-cover.jpg','sport-cover.jpg','sysasa.jpg'])
+        'image' =>  $faker->randomElement([
+            '1633520584_الاقتصاد_.jpg','1633520668_المحافظات_.jpg','1633520880_الاخبار_.jpg','1633520918_قضايا_.jpg'
+        ])
     ];
 });
 
 
-//$factory->define(Media::class, function (Faker $faker) {
-//
-//    return [
-//        'filename' => $faker->randomElement(['1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg','7.jpg','8.jpg','9.jpg','10.jpg']),
-//        'news_id' => News::all()->random()->id,
-//    ];
-//});
+$factory->define(Sponsor::class, function (Faker $faker) {
+    return [
+        'link' => $faker->url,
+        'image' =>  $faker->randomElement([
+            '1.jpg','2.jpg','3.jpg','4.jpg'
+        ])
+    ];
+});
+
+
+$factory->define(Contact::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->unique()->safeEmail,
+        'phone' => $faker->phoneNumber,
+        'body' => $faker->text
+    ];
+});

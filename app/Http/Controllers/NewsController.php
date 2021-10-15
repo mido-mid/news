@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,6 +51,8 @@ class NewsController extends Controller
         //
         $new = News::find($id);
 
+        $sponsors = Sponsor::all();
+
         if($new){
             $new->media = DB::table('media')->where('news_id',$new->id)->get();
 
@@ -61,7 +64,7 @@ class NewsController extends Controller
                 $category_new->media = DB::table('media')->where('news_id',$category_new->id)->get();
             }
 
-            return view('show',compact('new','category_news'));
+            return view('show',compact('new','category_news','sponsors'));
         }
         else{
             return redirect()->route('main')->withStatus('ليس هناك خبر بهذا الرقم التعريفي');

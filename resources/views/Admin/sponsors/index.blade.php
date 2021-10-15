@@ -31,7 +31,7 @@
                             <div class="card-body">
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
-                                    @if(count($categories) > 0)
+                                    @if(count($sponsors) > 0)
                                         <thead>
                                             <tr>
 
@@ -76,8 +76,8 @@
                                             <tr>
                                                 <td colspan="3">
                                                     <center>
-                                                        <h3>لا يوجد أقسام حتي الأن !</h3>
-                                                        <a class="btn btn-danger" href="{{ route('admin-categories.create')}}">إضافة</a>
+                                                        <h3>لا يوجد إعلانات حتي الأن !</h3>
+                                                        <a class="btn btn-danger" href="{{ route('admin-sponsors.create')}}">إضافة</a>
                                                     </center>
                                                 </td>
                                             </tr>

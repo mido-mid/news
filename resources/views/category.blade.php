@@ -87,34 +87,36 @@
                 {{ $category->news->links() }}
             </nav>
         </div>
+    </section>
 
-        <div class=" bg-gray pt-30 pb-40 mb-60 mt-30">
-            <div dir="rtl" class = "container">
+    @if(count($sponsors) > 0)
+        <section class="team section-padding ">
+            <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 mb-30px" style=" height: 250px;">
-                        <div class="item text-center mb-50 " >
-                            <div class="post-img">
-                                <img src="{{asset('img')}}/logo2.jpg" alt="" style="margin: 0;width: 100%;height: 200px;">
-                            </div>
-                        </div>
+                    <div  class="section-head col-sm-12 text-right">
+                        <h4>
+                            الإعلانات
+                        </h4>
                     </div>
-                    <div class="col-lg-4 mb-30px" style=" height: 250px;">
-                        <div class="item text-center mb-50 " >
-                            <div class="post-img">
-                                <img src="{{asset('img')}}/logo2.jpg" alt="" style="margin: 0;width: 100%;height: 200px;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-30px" style=" height: 250px;">
-                        <div class="item text-center mb-50 " >
-                            <div class="post-img">
-                                <img src="{{asset('img')}}/logo2.jpg" alt="" style="margin: 0;width: 100%;height: 200px;">
+                    <div class="feat bg-gray pt-80 pb-50 ">
+                        <div dir="rtl" class = "container">
+                            <div class="row">
+                                @foreach($sponsors as $sponsor)
+                                    <div class="col-lg-4" style="height: 250px;margin-bottom: 30px">
+                                        <div class="item text-center mb-md50 " >
+                                            <div class="post-img">
+                                                <a href="{{$sponsor->link}}">
+                                                    <img src="{{asset('sponsor_images')}}/{{$sponsor->image}}" alt="" style="margin: 0;width: 200px;height: 250px;">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 @endsection

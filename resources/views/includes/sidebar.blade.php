@@ -37,6 +37,22 @@
                             <span>الأخبار</span>
                         </a>
                     </li>
+
+                    <!-- sponsors -->
+                    <li>
+                        <a href="{{ route('admin-sponsors.index') }}">
+                            <i class="dripicons-network-1"></i>
+                            <span>الإعلانات</span>
+                        </a>
+                    </li>
+
+                    <!-- admins -->
+                    <li>
+                        <a href="{{ route('admin-contacts.index') }}">
+                            <i class="dripicons-network-1"></i>
+                            <span>الشكاوي</span>
+                        </a>
+                    </li>
                 @else
 
                     <!-- add news -->

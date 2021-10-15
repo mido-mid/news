@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Sponsor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class CategoriesController extends Controller
+class ContactsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +14,7 @@ class CategoriesController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
@@ -27,6 +25,7 @@ class CategoriesController extends Controller
     public function create()
     {
         //
+        return view('contact');
     }
 
     /**
@@ -38,6 +37,27 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         //
+        $rules =  [
+            'name' => ['required','string','min:3','max:200','not_regex:/([%\$#\*<>]+)/'],
+            'email' => ['required', 'string', 'email', 'max:200', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'type' => ['required', 'string'],
+        ];
+
+        $this->validate( $request, $rules );
+
+        $admin = User::create([
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => Hash::make($request->password),
+            "type" => $request->type
+        ]);
+
+        if ($admin) {
+            return redirect()->route('admins.index')->withStatus('لقد تم إضافة مشرف بنجاح');
+        } else {
+            return redirect()->route('admins.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
+        }
     }
 
     /**
@@ -49,35 +69,6 @@ class CategoriesController extends Controller
     public function show($id)
     {
         //
-        $category = Category::find($id);
-
-        $sponsors = Sponsor::all();
-
-        if($category){
-            $category_latest_news = DB::table('news')->where('category_id',$category->id)
-                ->where('state',"approved")
-                ->limit(4)
-                ->get();
-
-            foreach ($category_latest_news as $new) {
-                $new->media = DB::table('media')->where('news_id', $new->id)->get();
-            }
-
-            $category->news = DB::table('news')->where('category_id',$category->id)
-                ->where('state',"approved")
-                ->orderBy('created_at','desc')->paginate(5);
-
-            if(count($category->news) > 0){
-                foreach ($category->news as $new){
-                    $new->media = DB::table('media')->where('news_id',$new->id)->get();
-                }
-            }
-
-            return view('category',compact('category_latest_news','category','sponsors'));
-        }
-        else{
-            return redirect()->route('main')->withStatus('ليس هناك خبر بهذا الرقم التعريفي');
-        }
     }
 
     /**

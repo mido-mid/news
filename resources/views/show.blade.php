@@ -52,6 +52,7 @@
                     </div>
 
                     <div dir="rtl" class="col-lg-9 col-12 text-right" style="padding-top: 5px;">
+                        <p class="col-lg-12 text-left" style="color: red;margin-bottom: -20px"> بتاريخ : {{date("d/m/Y",strtotime($new->created_at))}}</p>
                         <h6 class="col-lg-12 text-right mb-10" style="color: red;"> بقلم / {{$new->author}}</h6>
                         <p class="col-12 text-right">{{$new->body}}</p>
                     </div>
@@ -102,36 +103,36 @@
     ======================================= -->
     <!-- =====================================
 ==== Start adv-->
-    <section class="hero section-padding pb-0 " >
-        <div class=" bg-gray pt-30 pb-40 mb-60 mt-30">
-            <div dir="rtl" class = "container">
+    @if(count($sponsors) > 0)
+        <section class="team section-padding ">
+            <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 mb-30px" style=" height: 250px;">
-                        <div class="item text-center mb-50 " >
-                            <div class="post-img">
-                                <img src="{{asset('img')}}/logo2.jpg" alt="" style="margin: 0;width: 100%;height: 200px;">
-                            </div>
-                        </div>
+                    <div  class="section-head col-sm-12 text-right">
+                        <h4>
+                            الإعلانات
+                        </h4>
                     </div>
-                    <div class="col-lg-4 mb-30px" style=" height: 250px;">
-                        <div class="item text-center mb-50 " >
-                            <div class="post-img">
-                                <img src="{{asset('img')}}/logo2.jpg" alt="" style="margin: 0;width: 100%;height: 200px;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 mb-30px" style=" height: 250px;">
-                        <div class="item text-center mb-50 " >
-                            <div class="post-img">
-                                <img src="{{asset('img')}}/logo2.jpg" alt="" style="margin: 0;width: 100%;height: 200px;">
+                    <div class="feat bg-gray pt-80 pb-50 ">
+                        <div dir="rtl" class = "container">
+                            <div class="row">
+                                @foreach($sponsors as $sponsor)
+                                    <div class="col-lg-4" style="height: 250px;margin-bottom: 30px">
+                                        <div class="item text-center mb-md50 " >
+                                            <div class="post-img">
+                                                <a href="{{$sponsor->link}}">
+                                                    <img src="{{asset('sponsor_images')}}/{{$sponsor->image}}" alt="" style="margin: 0;width: 200px;height: 250px;">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
     <!-- End adv ====
     ======================================= -->
 @endsection
