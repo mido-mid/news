@@ -13,6 +13,7 @@ class News extends Model
         'author',
         'title',
         'body',
-        'category_id'
+        'category_id',
+        'state'
     ];
 }

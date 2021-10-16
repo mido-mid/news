@@ -36,8 +36,8 @@ class CategoriesController extends Controller
     {
 
          $rules = [
-             'name' => ['required','string','min:3','max:200','not_regex:/([%\$#\*<>]+)/'],
-             'image' => 'required|image|mimes:jpeg,png,jpgJPG|max:2048',
+             'name' => ['required','string','min:3','max:100','not_regex:/([%\$#\*<>]+)/'],
+             'image' => 'required|image|mimes:jpeg,png,jpg,JPG|max:2048',
          ];
 
          $this->validate($request,$rules);
@@ -107,7 +107,7 @@ class CategoriesController extends Controller
         $category = Category::find($id);
 
         $rules = [
-            'name' => ['required','string','min:3','max:200','not_regex:/([%\$#\*<>]+)/'],
+            'name' => ['required','string','min:3','max:100','not_regex:/([%\$#\*<>]+)/'],
             'image' => 'nullable|image|mimes:jpeg,png,jpg,JPG|max:2048',
         ];
 

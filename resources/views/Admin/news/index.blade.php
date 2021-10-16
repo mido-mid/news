@@ -11,7 +11,7 @@
                     <div class="col-12" style="margin-bottom: 20px;">
                         <button style="float: right" type="button" class="btn btn-primary waves-effect waves-light" onclick="window.location.href='{{route('admin-news.create')}}'">إضافة خبر</button>
                         @if($approved == true)
-                            <button type="button" class="btn btn-primary waves-effect waves-light" onclick="window.location.href='{{route('admin.pending_news')}}'">الاخبار التي لم تقبل</button>
+                            <button type="button" style="float: left" class="btn btn-primary waves-effect waves-light" onclick="window.location.href='{{route('admin.pending_news')}}'">الاخبار التي لم تقبل</button>
                         @endif
                     </div> <!-- end col -->
                 </div> <!-- end row -->
@@ -82,7 +82,7 @@
                                                             @csrf
                                                             @method('put')
 
-                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("هل تريد قبول هذا الخبر ؟") }}') ? this.parentElement.submit() : ''">{{ __('قبول') }}</button>
+                                                            <button type="button" class="btn btn-success waves-effect waves-light" onclick="confirm('{{ __("هل تريد قبول هذا الخبر ؟") }}') ? this.parentElement.submit() : ''">{{ __('قبول') }}</button>
 
                                                         </form>
                                                     </td>

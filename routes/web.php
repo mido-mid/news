@@ -32,7 +32,7 @@ Route::group(['middleware' => ['auth','admin']],function() {
     Route::resource('admin-sponsors','Admin\SponsorsController');
     Route::resource('admin-contacts','Admin\ContactsController');
     Route::get('admin/pending_news', 'Admin\NewsController@getPendingNews')->name('admin.pending_news');
-    Route::put('admin/approve_news', 'Admin\NewsController@approveNew')->name('admin.approve_news');
+    Route::put('admin/approve_news/{id}', 'Admin\NewsController@approveNew')->name('admin.approve_news');
     Route::get('admin/profile', 'Admin\ProfileController@edit')->name('admin.profile');
     Route::put('admin/profile/{id}', 'Admin\ProfileController@update')->name('admin.profile.update');
 });

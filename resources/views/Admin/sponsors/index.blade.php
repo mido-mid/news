@@ -45,7 +45,7 @@
                                             <tbody>
                                                 <tr>
 
-                                                    <td><a href="{{$sponsor->link}}">{{$sponsor->link}}</a></td>
+                                                    <td><a href="{{$sponsor->link}}" target="_blank">{{$sponsor->link}}</a></td>
 
                                                     <td><center><img src="{{ asset('sponsor_images/'.$sponsor->image) }}" style="width: 20%;height:200px"></center></td>
 

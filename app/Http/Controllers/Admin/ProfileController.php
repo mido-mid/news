@@ -22,7 +22,7 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $rules =  [
-            'name' => ['required','string','min:3','max:200','not_regex:/([%\$#\*<>]+)/'],
+            'name' => ['required','string','min:3','max:100','not_regex:/([%\$#\*<>]+)/'],
             'email' => ['required', 'string', 'email', 'max:200', Rule::unique((new User)->getTable())->ignore(auth()->id())],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ];

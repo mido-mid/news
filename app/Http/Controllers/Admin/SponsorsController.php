@@ -42,7 +42,7 @@ class SponsorsController extends Controller
 
         $rules = [
             'link' => ['required','url'],
-            'image' => 'required|image|mimes:jpeg,png,jpgJPG|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,JPG|max:2048',
         ];
 
         $this->validate($request,$rules);
@@ -113,7 +113,7 @@ class SponsorsController extends Controller
 
         $rules = [
             'link' => ['required','url'],
-            'image' => 'required|image|mimes:jpeg,png,jpgJPG|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,JPG|max:2048',
         ];
 
 

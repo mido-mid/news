@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use Illuminate\Http\Request;
 
 class ContactsController extends Controller
@@ -38,25 +39,25 @@ class ContactsController extends Controller
     {
         //
         $rules =  [
-            'name' => ['required','string','min:3','max:200','not_regex:/([%\$#\*<>]+)/'],
-            'email' => ['required', 'string', 'email', 'max:200', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'type' => ['required', 'string'],
+            'name' => ['required','string','min:3','max:100','not_regex:/([%\$#\*<>]+)/'],
+            'email' => ['required','email','max:200'],
+            'phone' => ['required','digits:11'],
+            'complaint' => ['required','not_regex:/([%\$#\*<>]+)/'],
         ];
 
         $this->validate( $request, $rules );
 
-        $admin = User::create([
+        $contact = Contact::create([
             "name" => $request->name,
             "email" => $request->email,
-            "password" => Hash::make($request->password),
-            "type" => $request->type
+            "phone" => $request->phone,
+            "body" => $request->complaint
         ]);
 
-        if ($admin) {
-            return redirect()->route('admins.index')->withStatus('لقد تم إضافة مشرف بنجاح');
+        if ($contact) {
+            return redirect()->route('contacts.create')->withStatus('لقد تم إرسال الشكوي بنجاح بنجاح');
         } else {
-            return redirect()->route('admins.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
+            return redirect()->route('contacts.create')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
         }
     }
 

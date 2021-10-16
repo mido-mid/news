@@ -14,7 +14,7 @@
                                 <h3 class="card-title">
 
 
-                                    @if(isset($category))
+                                    @if(isset($sponsor))
                                         {{ __('تعديل بيانات الإعلان') }}
                                     @else
                                         {{ __('إضافة إعلان') }}
@@ -43,7 +43,7 @@
 
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-sm-2">الصورة</label>
-                                        <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" accept=".jpeg,.png,.jpg,.JPG" id="example-text-input" @if(!isset($category)) required @endif oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
+                                        <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" accept=".jpeg,.png,.jpg,.JPG" id="example-text-input" @if(!isset($sponsor)) required @endif oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                                         @error('image')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

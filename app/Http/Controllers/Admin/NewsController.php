@@ -58,9 +58,9 @@ class NewsController extends Controller
     {
         //
         $rules = [
-            'title' => ['required', 'string', 'max:200', 'min:3'],
+            'title' => ['required', 'string', 'max:255', 'min:3'],
             'body' => ['required'],
-            'author' => ['required', 'string', 'max:200', 'min:3','not_regex:/([%\$#\*<>]+)/'],
+            'author' => ['required', 'string', 'max:100', 'min:3','not_regex:/([%\$#\*<>]+)/'],
             'media' => 'required',
             'media.*' => 'image|mimes:jpeg,png,jpg,JPG|max:100040',
             'category_id' => ['required', 'integer'],
@@ -102,7 +102,13 @@ class NewsController extends Controller
 
             }
 
-            return redirect()->route('admin-news.index')->withStatus('لقد تم إضافة خبر بنجاح');
+            if(auth()->user()->type == "publisher"){
+                return redirect()->route('admin-news.create')->withStatus('لقد تم إضافة خبر بنجاح');
+            }
+            else{
+                return redirect()->route('admin-news.index')->withStatus('لقد تم إضافة خبر بنجاح');
+            }
+
         } else {
             return redirect()->route('admin-news.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
         }
@@ -166,9 +172,9 @@ class NewsController extends Controller
         $new = News::find($id);
 
         $rules = [
-            'title' => ['required', 'string', 'max:200', 'min:2'],
+            'title' => ['required', 'string', 'max:255', 'min:3'],
             'body' => ['required'],
-            'author' => ['required', 'string', 'max:255', 'min:3','not_regex:/([%\$#\*<>]+)/'],
+            'author' => ['required', 'string', 'max:100', 'min:3','not_regex:/([%\$#\*<>]+)/'],
             'media' => 'nullable',
             'media.*' => 'image|mimes:jpeg,png,jpg,JPG|max:100040',
             'category_id' => ['required', 'integer'],
@@ -234,7 +240,12 @@ class NewsController extends Controller
                 }
 
             }
-            return redirect()->route('admin-news.index')->withStatus('لقد تم تعديل بيانات الخبر بنجاح');
+            if($new->state == "pending"){
+                return redirect()->route('admin.pending_news')->withStatus('لقد تم تعديل بيانات الخبر بنجاح');
+            }
+            else{
+                return redirect()->route('admin-news.index')->withStatus('لقد تم تعديل بيانات الخبر بنجاح');
+            }
         }
         else{
             return redirect()->route('admin-news.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
@@ -263,13 +274,18 @@ class NewsController extends Controller
 
             $new->delete();
 
-            return redirect()->route('admin-news.index')->withStatus('لقد تم حذف الخبر بنجاح');
+            if($new->state == "pending"){
+                return redirect()->route('admin.pending_news')->withStatus('لقد تم حذف الخبر بنجاح');
+            }
+            else{
+                return redirect()->route('admin-news.index')->withStatus('لقد تم حذف الخبر بنجاح');
+            }
         } else {
             return redirect()->route('admin-news.index')->withStatus('ليس هناك خبر بهذا الرقم التعريفي');
         }
     }
 
-    public function getPendingNews($id)
+    public function getPendingNews()
     {
         //
         $approved = false;
@@ -287,7 +303,7 @@ class NewsController extends Controller
         if($new)
         {
             $new->update(['state' => "approved"]);
-            return redirect()->route('admin-news.index')->withStatus('لقد تم قبول هذا الخبر بنجاح');
+            return redirect()->route('admin.pending_news')->withStatus('لقد تم قبول هذا الخبر بنجاح');
         }
         else
         {
