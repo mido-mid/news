@@ -61,7 +61,7 @@ class SponsorsController extends Controller
         ]);
 
         if ($category) {
-            return redirect()->route('admin-sponsors.index')->withStatus('لقد تم إضافة معلن بنجاح');
+            return redirect()->route('admin-sponsors.index')->withStatus('لقد تم إضافة إعلان بنجاح');
         } else {
             return redirect()->route('admin-sponsors.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
         }
@@ -95,7 +95,7 @@ class SponsorsController extends Controller
         }
         else
         {
-            return redirect('admin/sponsors')->withStatus('ليس هناك معلن بهذا الرقم التعريفي');
+            return redirect('admin/sponsors')->withStatus('ليس هناك إعلان بهذا الرقم التعريفي');
         }
     }
 
@@ -138,9 +138,9 @@ class SponsorsController extends Controller
                 'link' => $request->link,
                 'image'=> $file_to_store
             ]);
-            return redirect()->route('admin-sponsors.index')->withStatus('لقد تم تعديل بيانات المعلن بنجاح');
+            return redirect()->route('admin-sponsors.index')->withStatus('لقد تم تعديل بيانات الإعلان بنجاح');
         } else {
-            return redirect()->route('admin-sponsors.index')->withStatus('ليس هناك معلن بهذا الرقم التعريفي');
+            return redirect()->route('admin-sponsors.index')->withStatus('ليس هناك إعلان بهذا الرقم التعريفي');
         }
     }
 
@@ -163,9 +163,9 @@ class SponsorsController extends Controller
 
             $sponsor->delete();
 
-            return redirect()->route('admin-sponsors.index')->withStatus('لقد تم حذف المعلن بنجاح');
+            return redirect()->route('admin-sponsors.index')->withStatus('لقد تم حذف الإعلان بنجاح');
         } else {
-            return redirect()->route('admin-sponsors.index')->withStatus('ليس هناك معلن بهذا الرقم التعريفي');
+            return redirect()->route('admin-sponsors.index')->withStatus('ليس هناك إعلان بهذا الرقم التعريفي');
         }
     }
 }

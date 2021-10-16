@@ -182,15 +182,12 @@ class NewsController extends Controller
 
         $this->validate($request, $rules);
 
-        $state = auth()->user()->type == "publisher" ? "pending" : "approved";
-
         if ($new) {
 
             $new->update([
                 "title" => $request->title,
                 "body" => strip_tags($request->body),
                 "author" => $request->author,
-                "state" => $state,
                 "category_id" => $request->category_id
             ]);
 

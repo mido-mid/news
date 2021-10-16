@@ -55,7 +55,7 @@ class ContactsController extends Controller
         ]);
 
         if ($contact) {
-            return redirect()->route('contacts.create')->withStatus('لقد تم إرسال الشكوي بنجاح بنجاح');
+            return redirect()->route('contacts.create')->withStatus('لقد تم إرسال الشكوي بنجاح');
         } else {
             return redirect()->route('contacts.create')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
         }

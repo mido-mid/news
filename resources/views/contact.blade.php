@@ -37,7 +37,7 @@
 
                     <!-- Email -->
                     <div class="form-group">
-                        <label for="email">{{ __("البريد الإلكتروني :")  }}</label>
+                        <label for="email">{{ __("البريد الإلكتروني:")  }}</label>
                         <input class="@error('email') is-invalid @enderror" type="text" value="{{old('email')}}" id="email" placeholder="برجاء ادخال البريد الاليكتروني"  name="email" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
                         @error('email')
                             <span class="invalid-feedback" role="alert">
