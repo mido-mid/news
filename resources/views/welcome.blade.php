@@ -229,14 +229,14 @@
                             الإعلانات
                         </h4>
                     </div>
-                    <div class="feat bg-gray pt-80 pb-50 ">
+                    <div class="feat pt-80 pb-50 ">
                         <div dir="rtl" class = "container">
                             <div class="row">
                                 @foreach($sponsors as $sponsor)
                                     <div class="col-lg-4" style="height: 250px;margin-bottom: 30px">
                                         <div class="item text-center mb-md50 " >
                                             <div class="post-img">
-                                                <a href="{{$sponsor->link}}">
+                                                <a href="{{$sponsor->link}}" target="_blank">
                                                     <img src="{{asset('sponsor_images')}}/{{$sponsor->image}}" alt="" style="margin: 0;width: 200px;height: 250px;">
                                                 </a>
                                             </div>
@@ -268,100 +268,27 @@
                 </div>
 
                 <div class="owl-carousel owl-theme col-sm-12">
-                    <div class="titem text-center">
-                        <div class="team-img">
-                            <img src="img/team/leader.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <h6>ايمن صيام</h6>
-                            <span>رئيس الجريدة</span>
+                    @foreach($employees as $employee)
+                        <div class="titem text-center">
+                            <div class="team-img">
+                                <img src="{{asset('employee_images')}}/{{$employee->image}}" alt="">
+                            </div>
+                            <div class="info">
+                                <h6>{{$employee->name}}</h6>
+                                <span>{{$employee->position}}</span>
 
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="titem text-center">
-                        <div class="team-img">
-                            <img src="img/team/leader.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <h6>ايمن صيام</h6>
-                            <span>رئيس الجريدة</span>
-
-                        </div>
-                    </div>
-
-                    <div class="titem text-center">
-                        <div class="team-img">
-                            <img src="img/team/leader.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <h6>ايمن صيام</h6>
-                            <span>رئيس الجريدة</span>
-
-                        </div>
-                    </div>
-
-                    <div class="titem text-center">
-                        <div class="team-img">
-                            <img src="img/team/leader.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <h6>ايمن صيام</h6>
-                            <span>رئيس الجريدة</span>
-
-                        </div>
-                    </div>
-
-                    <div class="titem text-center">
-                        <div class="team-img">
-                            <img src="img/team/leader.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <h6>ايمن صيام</h6>
-                            <span>رئيس الجريدة</span>
-
-                        </div>
-                    </div>
-
-                    <div class="titem text-center">
-                        <div class="team-img">
-                            <img src="img/team/leader.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <h6>ايمن صيام</h6>
-                            <span>رئيس الجريدة</span>
-
-                        </div>
-                    </div>
-                    <div class="titem text-center">
-                        <div class="team-img">
-                            <img src="img/team/leader.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <h6>ايمن صيام</h6>
-                            <span>رئيس الجريدة</span>
-
-                        </div>
-                    </div>
-
-                    <div class="titem text-center">
-                        <div class="team-img">
-                            <img src="img/team/leader.jpg" alt="">
-                        </div>
-                        <div class="info">
-                            <h6>ايمن صيام</h6>
-                            <span>رئيس الجريدة</span>
-
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-
             </div>
         </div>
         <div class="col-lg-12 " style=" height: 250px; margin-top: 20px;">
             <div class="item text-center mb-md50 container" >
                 <div class="post-img">
-                    <img src="img/logo2.jpg" alt="" style="margin: 0;width: 100%;height: 200px;">
+                    <a href="{{$body_sponsor->link}}" target="_blank">
+                        <img src="{{asset('sponsor_images')}}/{{$body_sponsor->image}}" alt="" style="margin: 0;width: 100%;height: 200px;">
+                    </a>
                 </div>
             </div>
         </div>

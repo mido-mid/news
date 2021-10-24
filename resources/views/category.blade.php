@@ -64,7 +64,7 @@
 
             @if(count($category->news) > 0)
                 @foreach($category->news as $category_new)
-                    <div class="row" >
+                    <div class="row no-margin" >
                         <div dir="rtl" class="news row col-lg-12 text-center mb-20" >
                             @if(count($category_new->media) > 0)
                                 <img class=" col-lg-3 col-12" src="{{asset('media')}}/{{$category_new->media[0]->filename}}">
@@ -98,14 +98,14 @@
                             الإعلانات
                         </h4>
                     </div>
-                    <div class="feat bg-gray pt-80 pb-50 ">
+                    <div class="feat pt-80 pb-50 ">
                         <div dir="rtl" class = "container">
                             <div class="row">
                                 @foreach($sponsors as $sponsor)
                                     <div class="col-lg-4" style="height: 250px;margin-bottom: 30px">
                                         <div class="item text-center mb-md50 " >
                                             <div class="post-img">
-                                                <a href="{{$sponsor->link}}">
+                                                <a href="{{$sponsor->link}}" target="_blank">
                                                     <img src="{{asset('sponsor_images')}}/{{$sponsor->image}}" alt="" style="margin: 0;width: 200px;height: 250px;">
                                                 </a>
                                             </div>

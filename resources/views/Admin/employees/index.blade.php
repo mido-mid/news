@@ -9,7 +9,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12" style="margin-bottom: 20px;">
-                        <button style="float: right" type="button" class="btn btn-primary waves-effect waves-light" onclick="window.location.href='{{route('admin-sponsors.create')}}'">إضافة إعلان</button>
+                        <button style="float: right" type="button" class="btn btn-primary waves-effect waves-light" onclick="window.location.href='{{route('admin-employees.create')}}'">إضافة موظف</button>
                     </div> <!-- end col -->
                 </div> <!-- end row -->
                 <div class="col-12">
@@ -26,30 +26,31 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">الأعلانات</h3>
+                                <h3 class="card-title">الموظفين</h3>
                             </div>
                             <div class="card-body">
                                 <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
-                                    @if(count($sponsors) > 0)
+                                    @if(count($employees) > 0)
                                         <thead>
                                             <tr>
-                                                <th>رابط الاعلان</th>
-                                                <th>مكان الاعلان</th>
-                                                <th>صورة الاعلان</th>
+
+                                                <th>اسم الموظف</th>
+                                                <th>اسم الوظيفة</th>
+                                                <th>صورة الموظف</th>
                                                 <th>أدوات التحكم</th>
                                             </tr>
                                         </thead>
 
-                                        @foreach($sponsors as $sponsor)
+                                        @foreach($employees as $employee)
                                             <tbody>
                                                 <tr>
 
-                                                    <td><a href="{{$sponsor->link}}" target="_blank">{{$sponsor->link}}</a></td>
+                                                    <td>{{$employee->name}}</td>
 
-                                                    <td>{{$sponsor->type}}</td>
+                                                    <td>{{$employee->position}}</td>
 
-                                                    <td><center><img src="{{ asset('sponsor_images/'.$sponsor->image) }}" style="width: 20%;height:200px"></center></td>
+                                                    <td><center><img src="{{ asset('employee_images/'.$employee->image) }}" style="width: 20%;height:200px"></center></td>
 
                                                     <td>
                                                         <div class="dropdown">
@@ -57,14 +58,14 @@
                                                                 <i class="fas fa-ellipsis-v"></i>
                                                             </button>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                                <form action="{{ route('admin-sponsors.destroy', $sponsor->id) }}" method="post">
+                                                                <form action="{{ route('admin-employees.destroy', $employee->id) }}" method="post">
                                                                     @csrf
                                                                     @method('delete')
 
-                                                                    <button type="button" class="dropdown-item" onclick="confirm('{{ __("هل تريد حذف هذا الإعلان ؟") }}') ? this.parentElement.submit() : ''">{{ __('حذف') }}</button>
+                                                                    <button type="button" class="dropdown-item" onclick="confirm('{{ __("هل تريد حذف هذا الموظف ؟") }}') ? this.parentElement.submit() : ''">{{ __('حذف') }}</button>
 
                                                                 </form>
-                                                                <a class="dropdown-item" href="{{ route('admin-sponsors.edit', $sponsor->id) }}">{{ __('تعديل') }}</a>
+                                                                <a class="dropdown-item" href="{{ route('admin-employees.edit', $employee->id) }}">{{ __('تعديل') }}</a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -78,8 +79,8 @@
                                             <tr>
                                                 <td colspan="3">
                                                     <center>
-                                                        <h3>لا يوجد إعلانات حتي الأن !</h3>
-                                                        <a class="btn btn-danger" href="{{ route('admin-sponsors.create')}}">إضافة</a>
+                                                        <h3>لا يوجد أقسام حتي الأن !</h3>
+                                                        <a class="btn btn-danger" href="{{ route('admin-categories.create')}}">إضافة</a>
                                                     </center>
                                                 </td>
                                             </tr>

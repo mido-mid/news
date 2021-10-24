@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Employee;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,10 @@ class MainController extends Controller
     public function index(){
 
         $categories = DB::table('categories')->get();
+
+        $body_sponsor = DB::table('sponsors')->where('type','body')->first();
+
+        $employees = Employee::all();
 
         $sponsors = Sponsor::all();
 
@@ -44,6 +49,6 @@ class MainController extends Controller
             }
         }
 
-        return view('welcome',compact('categories','latest_news','latest_four_news','sponsors'));
+        return view('welcome',compact('categories','latest_news','latest_four_news','sponsors','body_sponsor','employees'));
     }
 }

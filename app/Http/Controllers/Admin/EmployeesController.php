@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Sponsor;
+use App\Models\Category;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
-class SponsorsController extends Controller
+class EmployeesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class SponsorsController extends Controller
     public function index()
     {
         //
-        $sponsors = Sponsor::orderBy('id', 'desc')->get();
-        return view('Admin.sponsors.index',compact('sponsors'));
+        $employees = Employee::orderBy('id', 'desc')->get();
+        return view('Admin.employees.index',compact('employees'));
     }
 
     /**
@@ -28,7 +29,7 @@ class SponsorsController extends Controller
     public function create()
     {
         //
-        return view('Admin.sponsors.create');
+        return view('Admin.employees.create');
     }
 
     /**
@@ -39,10 +40,10 @@ class SponsorsController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
         $rules = [
-            'link' => ['required','url'],
-            'type' => ['required', 'integer'],
+            'name' => ['required','string','min:3','max:100','not_regex:/([%\$#\*<>]+)/'],
+            'position' => ['required','string','min:3','max:100','not_regex:/([%\$#\*<>]+)/'],
             'image' => 'required|image|mimes:jpeg,png,jpg,JPG|max:2048',
         ];
 
@@ -54,18 +55,18 @@ class SponsorsController extends Controller
         $fileextension = $image->getClientOriginalExtension();
         $file_to_store = time() . '_' . explode('.', $filename)[0] . '_.' . $fileextension;
 
-        $image->move('sponsor_images', $file_to_store);
+        $image->move('employee_images', $file_to_store);
 
-        $category = Sponsor::create([
-            'link' => $request->link,
-            'type' => $request->type,
+        $employee = Employee::create([
+            'name' => $request->name,
+            'position' => $request->position,
             'image'=> $file_to_store
         ]);
 
-        if ($category) {
-            return redirect()->route('admin-sponsors.index')->withStatus('لقد تم إضافة إعلان بنجاح');
+        if ($employee) {
+            return redirect()->route('admin-employees.index')->withStatus('لقد تم إضافة موظف بنجاح');
         } else {
-            return redirect()->route('admin-sponsors.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
+            return redirect()->route('admin-categories.index')->withStatus("حدث خطأ ما , من فضلك أعد المحاولة");
         }
     }
 
@@ -89,15 +90,15 @@ class SponsorsController extends Controller
     public function edit($id)
     {
         //
-        $sponsor = Sponsor::find($id);
+        $employee = Employee::find($id);
 
-        if($sponsor)
+        if($employee)
         {
-            return view('Admin.sponsors.create',compact('sponsor'));
+            return view('Admin.employees.create',compact('employee'));
         }
         else
         {
-            return redirect('admin/sponsors')->withStatus('ليس هناك إعلان بهذا الرقم التعريفي');
+            return redirect('admin/employees')->withStatus('ليس هناك موظف بهذا الرقم التعريفي');
         }
     }
 
@@ -110,19 +111,19 @@ class SponsorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $sponsor = Sponsor::find($id);
+        //
+        $employee = Employee::find($id);
 
         $rules = [
-            'link' => ['required','url'],
-            'type' => ['required', 'integer'],
+            'name' => ['required','string','min:3','max:100','not_regex:/([%\$#\*<>]+)/'],
+            'position' => ['required','string','min:3','max:100','not_regex:/([%\$#\*<>]+)/'],
             'image' => 'nullable|image|mimes:jpeg,png,jpg,JPG|max:2048',
         ];
 
 
         $this->validate($request,$rules);
 
-        if ($sponsor) {
+        if ($employee) {
 
             $file_to_store = null;
 
@@ -131,22 +132,20 @@ class SponsorsController extends Controller
                 $filename = $image->getClientOriginalName();
                 $fileextension = $image->getClientOriginalExtension();
                 $file_to_store = time() . '_' . explode('.', $filename)[0] . '_.' . $fileextension;
-                $image->move('sponsor_images', $file_to_store);
-                unlink('sponsor_images/' . $sponsor->image);
+                $image->move('employee_images', $file_to_store);
+                unlink('employee_images/' . $employee->image);
             }
 
-            $file_to_store = $file_to_store != null ? $file_to_store : $sponsor->image;
+            $file_to_store = $file_to_store != null ? $file_to_store : $employee->image;
 
-            if($request->type == $sponsor->type){
-                $sponsor->update([
-                    'link' => $request->link,
-                    'type' => $request->type,
-                    'image'=> $file_to_store
-                ]);
-            }
-            return redirect()->route('admin-sponsors.index')->withStatus('لقد تم تعديل بيانات الإعلان بنجاح');
+            $employee->update([
+                'name' => $request->name,
+                'position' => $request->position,
+                'image'=> $file_to_store
+            ]);
+            return redirect()->route('admin-employees.index')->withStatus('لقد تم تعديل بيانات الموظف بنجاح');
         } else {
-            return redirect()->route('admin-sponsors.index')->withStatus('ليس هناك إعلان بهذا الرقم التعريفي');
+            return redirect()->route('admin-employees.index')->withStatus('ليس هناك موظف بهذا الرقم التعريفي');
         }
     }
 
@@ -158,20 +157,20 @@ class SponsorsController extends Controller
      */
     public function destroy($id)
     {
+        //
+        $employee = Employee::find($id);
 
-        $sponsor = Sponsor::find($id);
-
-        if($sponsor)
+        if($employee)
         {
-            if($sponsor->image != null) {
-                unlink('sponsor_images/' . $sponsor->image);
+            if($employee->image != null) {
+                unlink('employee_images/' . $employee->image);
             }
 
-            $sponsor->delete();
+            $employee->delete();
 
-            return redirect()->route('admin-sponsors.index')->withStatus('لقد تم حذف الإعلان بنجاح');
+            return redirect()->route('admin-employees.index')->withStatus('لقد تم حذف الموظف بنجاح');
         } else {
-            return redirect()->route('admin-sponsors.index')->withStatus('ليس هناك إعلان بهذا الرقم التعريفي');
+            return redirect()->route('admin-employees.index')->withStatus('ليس هناك موظف بهذا الرقم التعريفي');
         }
     }
 }

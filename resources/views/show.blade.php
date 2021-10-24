@@ -47,11 +47,17 @@
                             </div>
                         </div>
                     @endif
-                    <div class="col-12 mb-20 mt-30">
-                        <img  src="{{asset('img')}}/logo2.jpg" style="height: 200px;"  />
+                    <div class="col-lg-12 " style=" height: 250px; margin-top: 20px;">
+                        <div class="item text-center mb-md50 container" >
+                            <div class="post-img">
+                                <a href="{{$body_sponsor->link}}" target="_blank">
+                                    <img src="{{asset('sponsor_images')}}/{{$body_sponsor->image}}" alt="" style="margin: 0;width: 100%;height: 200px;">
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
-                    <div dir="rtl" class="col-lg-9 col-12 text-right" style="padding-top: 5px;">
+                    <div dir="rtl" class="col-lg-9 col-12 text-right" style="margin-top:60px;padding-top: 5px;">
                         <p class="col-lg-12 text-left" style="color: red;margin-bottom: -20px"> بتاريخ : {{date("d/m/Y",strtotime($new->created_at))}}</p>
                         <h6 class="col-lg-12 text-right mb-10" style="color: red;"> بقلم / {{$new->author}}</h6>
                         <p class="col-12 text-right">{{$new->body}}</p>
@@ -112,14 +118,14 @@
                             الإعلانات
                         </h4>
                     </div>
-                    <div class="feat bg-gray pt-80 pb-50 ">
+                    <div class="feat pt-80 pb-50 ">
                         <div dir="rtl" class = "container">
                             <div class="row">
                                 @foreach($sponsors as $sponsor)
                                     <div class="col-lg-4" style="height: 250px;margin-bottom: 30px">
                                         <div class="item text-center mb-md50 " >
                                             <div class="post-img">
-                                                <a href="{{$sponsor->link}}">
+                                                <a href="{{$sponsor->link}}" target="_blank">
                                                     <img src="{{asset('sponsor_images')}}/{{$sponsor->image}}" alt="" style="margin: 0;width: 200px;height: 250px;">
                                                 </a>
                                             </div>

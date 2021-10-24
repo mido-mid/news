@@ -53,6 +53,14 @@
                             <span>الشكاوي</span>
                         </a>
                     </li>
+
+                    <!-- employees -->
+                    <li>
+                        <a href="{{ route('admin-employees.index') }}">
+                            <i class="dripicons-network-1"></i>
+                            <span>الموظفين</span>
+                        </a>
+                    </li>
                 @else
 
                     <!-- add news -->

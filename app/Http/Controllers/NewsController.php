@@ -51,6 +51,8 @@ class NewsController extends Controller
         //
         $new = News::find($id);
 
+        $body_sponsor = DB::table('sponsors')->where('type','body')->first();
+
         $sponsors = Sponsor::all();
 
         if($new){
@@ -64,7 +66,7 @@ class NewsController extends Controller
                 $category_new->media = DB::table('media')->where('news_id',$category_new->id)->get();
             }
 
-            return view('show',compact('new','category_news','sponsors'));
+            return view('show',compact('new','category_news','sponsors','body_sponsor'));
         }
         else{
             return redirect()->route('main')->withStatus('ليس هناك خبر بهذا الرقم التعريفي');

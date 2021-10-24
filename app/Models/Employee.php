@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sponsor extends Model
+class Employee extends Model
 {
     //
-    protected $table = 'sponsors';
+    protected $table = 'employees';
 
     public $timestamps = false;
 
     protected $fillable = [
-        'link','image','type'
+        'name','position','image'
     ];
 }

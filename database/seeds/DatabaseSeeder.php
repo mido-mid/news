@@ -59,9 +59,11 @@ class DatabaseSeeder extends Seeder
 
         factory('App\Models\Category', 7)->create();
 
-        factory('App\Models\Sponsor', 7)->create();
+        factory('App\Models\Sponsor', 10)->create();
 
-        factory('App\Models\Contact', 7)->create();
+        factory('App\Models\Contact', 10)->create();
+
+        factory('App\Models\Employee', 10)->create();
 
         $this->news_factory();
 

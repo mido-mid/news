@@ -1615,6 +1615,7 @@ footer p {
     border: 1px solid #000000;
     border-radius: 3px;
     padding: 0;
+    margin: 0px 0px 30px 0;
     box-shadow: -3px 13px 48px -26px rgba(0,0,0,0.57);
     -webkit-box-shadow: -3px 13px 48px -26px rgba(0,0,0,0.57);
     -moz-box-shadow: -3px 13px 48px -26px rgba(0,0,0,0.57);
@@ -1656,7 +1657,6 @@ footer p {
 }
 
 .complaints-div input{
-    width: 318px;
     height: 50px;
     border-radius: 50px;
     border: none;
@@ -1689,4 +1689,8 @@ footer p {
 
 .complaints-div button{
 
+}
+
+.no-margin{
+    margin: 0px;
 }

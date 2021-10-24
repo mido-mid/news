@@ -159,10 +159,9 @@ foreach ($categories as $category){
 <footer class="text-center" >
     <div class="container" >
 
-
         <!-- Logo -->
-        <a class="logo" href="# " style="width: 100%;">
-            <img src="{{asset('img')}}/logo2.jpg" alt="logo" style="width: 100%; height: 200px;">
+        <a class="logo" href="{{$footer_sponsor->link}}" style="width: 100%;" target="_blank">
+            <img src="{{asset('sponsor_images')}}/{{$footer_sponsor->image}}" alt="logo" style="width: 100%; height: 200px;">
         </a>
         <div dir="rtl" class="row">
             @foreach($categories as $category)
@@ -184,9 +183,8 @@ foreach ($categories as $category){
             <span></span>
         </div>
 
-        <p style="color: #FFF;margin-bottom: 10px">&copy; جميع الحقوق محفوظة لجريدة منصة مصر</p>
         <a style="color: blue" href="{{route('contacts.create')}}">اضغط هنا </a> <p style="display:inline;color: #FFF">لإرسال الشكاوي و المقترحات من فضلك </p>
-
+        <p style="color: #FFF;margin-bottom: 10px">&copy; جميع الحقوق محفوظة لجريدة منصة مصر</p>
     </div>
 </footer>
 <!-- End Footer ====

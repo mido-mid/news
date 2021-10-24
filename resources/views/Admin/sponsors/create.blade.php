@@ -40,6 +40,16 @@
                                         @enderror
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="col-sm-2 col-form-label">مكان الاعلان</label>
+                                        <select class="form-control @error('type') is-invalid @enderror" name="type" id="state" required oninput="this.setCustomValidity('')"
+                                                oninvalid="this.setCustomValidity('هذا الحقل مطلوب')">
+
+                                            <option @if(isset( $sponsor )) @if($sponsor->type == "normal") selected @endif @endif value="normal">normal</option>
+                                            <option @if(isset( $sponsor )) @if($sponsor->type == "footer") selected @endif @endif value="footer">footer</option>
+                                            <option @if(isset( $sponsor )) @if($sponsor->type == "body") selected @endif @endif value="body">body</option>
+                                        </select>
+                                    </div>
 
                                     <div class="form-group">
                                         <label for="example-text-input" class="col-sm-2">الصورة</label>

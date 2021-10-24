@@ -4,6 +4,7 @@
 
 use App\Models\Category;
 use App\Models\Contact;
+use App\Models\Employee;
 use App\Models\Media;
 use App\Models\News;
 use App\Models\Sponsor;
@@ -54,6 +55,7 @@ $factory->define(Category::class, function (Faker $faker) {
 $factory->define(Sponsor::class, function (Faker $faker) {
     return [
         'link' => $faker->url,
+        'type' => 'normal',
         'image' =>  $faker->randomElement([
             '1.jpg','2.jpg','3.jpg','4.jpg'
         ])
@@ -69,3 +71,14 @@ $factory->define(Contact::class, function (Faker $faker) {
         'body' => $faker->text
     ];
 });
+
+$factory->define(Employee::class, function (Faker $faker) {
+    return [
+        'name' => $faker->randomElement(['أيمن محمد','محمد أسامة','محمد سلامة']),
+        'position' => $faker->randomElement(['رئيس قسم التحقيقات', 'رئيس قسم الحوادث', 'رئيس الجريدة']),
+        'image' =>  $faker->randomElement([
+            '1.jpeg','2.jpg','3.jpg','4.jpeg'
+        ])
+    ];
+});
+

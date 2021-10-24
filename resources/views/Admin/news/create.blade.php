@@ -22,8 +22,6 @@
 
                             <div class="card-header">
                                 <h3 class="card-title">
-
-
                                     @if(isset($new))
                                         {{ __('تعديل بيانات الخبر') }}
                                     @else
