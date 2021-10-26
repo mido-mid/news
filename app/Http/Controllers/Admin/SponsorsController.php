@@ -181,6 +181,10 @@ class SponsorsController extends Controller
 
         if($sponsor)
         {
+            if($sponsor->type == "footer" || $sponsor->type == "body"){
+                return redirect()->route('admin-sponsors.index')->withStatus('يجب أن يوجد إعلان واحد علي الأقل من نفس النوع في الموقع');
+            }
+
             if($sponsor->image != null) {
                 unlink('sponsor_images/' . $sponsor->image);
             }
