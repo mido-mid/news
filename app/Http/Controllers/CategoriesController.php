@@ -51,7 +51,7 @@ class CategoriesController extends Controller
         //
         $category = Category::find($id);
 
-        $sponsors = Sponsor::all();
+        $sponsors = Sponsor::whereNotIn('type',['footer','body'])->get();
 
         if($category){
             $category_latest_news = DB::table('news')->where('category_id',$category->id)

@@ -53,7 +53,7 @@ class NewsController extends Controller
 
         $body_sponsor = DB::table('sponsors')->where('type','body')->first();
 
-        $sponsors = Sponsor::all();
+        $sponsors = Sponsor::whereNotIn('type',['footer','body'])->get();
 
         if($new){
             $new->media = DB::table('media')->where('news_id',$new->id)->get();

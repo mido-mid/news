@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SponsorsController extends Controller
 {
@@ -42,7 +43,7 @@ class SponsorsController extends Controller
 
         $rules = [
             'link' => ['required','url'],
-            'type' => ['required', 'integer'],
+            'type' => ['required', 'string'],
             'image' => 'required|image|mimes:jpeg,png,jpg,JPG|max:2048',
         ];
 
@@ -55,6 +56,12 @@ class SponsorsController extends Controller
         $file_to_store = time() . '_' . explode('.', $filename)[0] . '_.' . $fileextension;
 
         $image->move('sponsor_images', $file_to_store);
+
+        if($request->type != "normal"){
+            DB::table('sponsors')->where('type',$request->type)->update([
+               'type' => 'normal'
+            ]);
+        }
 
         $category = Sponsor::create([
             'link' => $request->link,
@@ -115,7 +122,7 @@ class SponsorsController extends Controller
 
         $rules = [
             'link' => ['required','url'],
-            'type' => ['required', 'integer'],
+            'type' => ['required', 'string'],
             'image' => 'nullable|image|mimes:jpeg,png,jpg,JPG|max:2048',
         ];
 
@@ -137,13 +144,24 @@ class SponsorsController extends Controller
 
             $file_to_store = $file_to_store != null ? $file_to_store : $sponsor->image;
 
-            if($request->type == $sponsor->type){
-                $sponsor->update([
-                    'link' => $request->link,
-                    'type' => $request->type,
-                    'image'=> $file_to_store
-                ]);
+            if($request->type != $sponsor->type){
+                if($request->type != "normal"){
+                    DB::table('sponsors')->where('type',$request->type)->update([
+                        'type' => 'normal'
+                    ]);
+                }
+                else{
+                    return redirect()->route('admin-sponsors.index')->withStatus('يجب أن يوجد إعلان واحد علي الأقل من نفس النوع في الموقع');
+                }
             }
+
+
+            $sponsor->update([
+                'link' => $request->link,
+                'type' => $request->type,
+                'image'=> $file_to_store
+            ]);
+
             return redirect()->route('admin-sponsors.index')->withStatus('لقد تم تعديل بيانات الإعلان بنجاح');
         } else {
             return redirect()->route('admin-sponsors.index')->withStatus('ليس هناك إعلان بهذا الرقم التعريفي');

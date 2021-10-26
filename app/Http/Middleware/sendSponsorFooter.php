@@ -17,7 +17,7 @@ class sendSponsorFooter
      */
     public function handle($request, Closure $next)
     {
-        $footer_sponsor = DB::table('sponsors')->where('type','body')->first();
+        $footer_sponsor = DB::table('sponsors')->where('type','footer')->first();
 
         View::composer(['layouts.app'], function($view) use ($footer_sponsor)
         {

@@ -19,7 +19,7 @@ class MainController extends Controller
 
         $employees = Employee::all();
 
-        $sponsors = Sponsor::all();
+        $sponsors = Sponsor::whereNotIn('type',['footer','body'])->get();
 
         $latest_news = DB::table('news')->where('state',"approved")->orderBy('created_at','desc')->limit(7)->get();
 
