@@ -55,6 +55,8 @@ class NewsController extends Controller
 
         $sponsors = Sponsor::whereNotIn('type',['footer','body'])->get();
 
+        $footer_sponsor = DB::table('sponsors')->where('type','footer')->first();
+
         if($new){
             $new->media = DB::table('media')->where('news_id',$new->id)->get();
 
@@ -66,7 +68,7 @@ class NewsController extends Controller
                 $category_new->media = DB::table('media')->where('news_id',$category_new->id)->get();
             }
 
-            return view('show',compact('new','category_news','sponsors','body_sponsor'));
+            return view('show',compact('new','category_news','sponsors','body_sponsor','footer_sponsor'));
         }
         else{
             return redirect()->route('main')->withStatus('ليس هناك خبر بهذا الرقم التعريفي');

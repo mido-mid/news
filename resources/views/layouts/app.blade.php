@@ -16,7 +16,7 @@ foreach ($categories as $category){
 }
 
 ?>
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -26,8 +26,10 @@ foreach ($categories as $category){
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="keywords" content="HTML5 Template Bemax onepage themeforest" />
-    <meta name="description" content="Bemax - Onepage Multi-Purpose HTML5 Template" />
-    <meta name="author" content="" />
+    <meta name="twitter:title" content="جريدة منصة مصر">
+    <meta name="twitter:description" content=" جريدة متخصصة في الاخبار المحليه و العالميه لتجعلك في الحدث اولا بأول و توافيك باخر الاخبار">
+    <meta name="twitter:image" content="img/logo.jpg">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Title  -->
     <title>جريدة منصة مصر</title>
@@ -99,11 +101,7 @@ foreach ($categories as $category){
 ======================================= -->
 
 
-
-
 @yield('content')
-
-
 
 
 <!-- =====================================
@@ -117,7 +115,7 @@ foreach ($categories as $category){
                         <span class="icon"><i class="icofont icofont-phone"></i></span>
                         <div class="cont">
                             <h6>الهاتف : </h6>
-                            <p style="color:#FFF;">+20 01051007 8918<br>+20 010 0000 8919</p>
+                            <p style="color:#FFF;">+20 01270409037<br>+20 01018031747</p>
                         </div>
                     </div>
                 </div>
@@ -129,7 +127,11 @@ foreach ($categories as $category){
                         <span class="icon"><i class="icofont icofont-map"></i></span>
                         <div class="cont">
                             <h6>العنوان : </h6>
-                            <p style="color: #FFFF">3rd Avenue, East Side<br> San Francisco</p>
+                            <p style="color: #FFFF">الجيزة
+                                شارع محمود عزمي
+                                ميدان الجيزة<br> إسكندرية
+                                شارع الإقبال
+                                أمام فيلا  مدير الأمن</p>
                         </div>
                     </div>
                 </div>

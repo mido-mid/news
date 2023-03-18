@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,11 @@ Route::group(['middleware' => ['footer_sponsor']],function() {
     Route::resource('contacts','ContactsController');
 });
 
+Route::get('clear-cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    dd("Cache is cleared");
+});
 
 //admin
 Route::group(['middleware' => ['auth','admin']],function() {
